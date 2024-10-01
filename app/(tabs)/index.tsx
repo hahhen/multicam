@@ -1,56 +1,67 @@
-import { Image, StyleSheet, Platform } from 'react-native';
+import { Image, StyleSheet, Platform, ScrollView } from 'react-native';
 
 import { HelloWave } from '@/components/HelloWave';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
+import { Colors } from '@/constants/Colors';
+import { ThemedScrollView } from '@/components/ThemedScrollView';
+import { Feed } from '@/components/Feed';
 
 export default function HomeScreen() {
+  const list = [
+    {
+      title: "Fujifilm X-T4",
+      image: "http://farm6.staticflickr.com/5075/5908389383_c69efcc2d7.jpg",
+      currency: "$",
+      price: 310.99,
+      priceProvider: "ebay",
+      likes: 30
+    },
+    {
+      title: "Camera",
+      image: "http://farm6.staticflickr.com/5075/5908389383_c69efcc2d7.jpg",
+      currency: "$",
+      price: 430.99,
+      priceProvider: "amazon",
+      likes: 30
+    },
+    {
+      title: "Camera",
+      image: "http://farm6.staticflickr.com/5075/5908389383_c69efcc2d7.jpg",
+      currency: "$",
+      price: 430.99,
+      priceProvider: "amazon",
+      likes: 30
+    },
+    
+
+  ]
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
+    <ThemedScrollView>
+      <ThemedView style={styles.titleContainer}>
+        <ThemedText style={styles.title} type="title">Featured articles</ThemedText>
+      </ThemedView>
+      <ThemedView style={styles.featured}>
         <Image
-          source={require('@/assets/images/partial-react-logo.png')}
+          source={require('@/assets/images/featured.png')}
           style={styles.reactLogo}
         />
-      }>
+      </ThemedView>
       <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
+        <ThemedText style={styles.title} type="title">Recommended</ThemedText>
       </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({ ios: 'cmd + d', android: 'cmd + m' })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-        <ThemedText>
-          Tap the Explore tab to learn more about what's included in this starter app.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          When you're ready, run{' '}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
+      <Feed list={list} />
+    </ThemedScrollView>
   );
 }
 
 const styles = StyleSheet.create({
+  title: {
+    color: Colors.light.tint,
+    letterSpacing: -2,
+    marginBottom: 16,
+  },
   titleContainer: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -60,9 +71,18 @@ const styles = StyleSheet.create({
     gap: 8,
     marginBottom: 8,
   },
+  featured: {
+    marginBottom: 64,
+    width: '100%',
+    height: 'auto',
+    aspectRatio: 155 / 57,
+    borderRadius: 8,
+    overflow: 'hidden',
+  },
   reactLogo: {
-    height: 178,
-    width: 290,
+    width: '100%',
+    height: '100%',
+    resizeMode: 'cover',
     bottom: 0,
     left: 0,
     position: 'absolute',

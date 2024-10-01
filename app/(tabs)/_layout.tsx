@@ -1,9 +1,9 @@
 import { Tabs } from 'expo-router';
 import React from 'react';
 
-import { TabBarIcon } from '@/components/navigation/TabBarIcon';
 import { Colors } from '@/constants/Colors';
 import { useColorScheme } from '@/hooks/useColorScheme';
+import { Bell, Home, Search, User } from 'lucide-react-native';
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
@@ -11,7 +11,12 @@ export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
+        tabBarStyle:{height: 80},
+        tabBarItemStyle:{justifyContent: 'center'},
+        tabBarLabelPosition: 'below-icon',
+        tabBarLabelStyle: { fontSize: 10, marginTop: 5 },
+        tabBarIconStyle: { maxHeight: 24,},
+        tabBarActiveTintColor: Colors.light.tint,
         headerShown: false,
       }}>
       <Tabs.Screen
@@ -19,16 +24,34 @@ export default function TabLayout() {
         options={{
           title: 'Home',
           tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'home' : 'home-outline'} color={color} />
+            <Home fillOpacity={focused ? 1 : 0} fill={color} color={color}/>
           ),
         }}
       />
       <Tabs.Screen
-        name="explore"
+        name="search"
         options={{
-          title: 'Explore',
+          title: 'Search',
           tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'code-slash' : 'code-slash-outline'} color={color} />
+            <Search fillOpacity={focused ? 1 : 0} fill={color} color={color}/>
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="notifications"
+        options={{
+          title: 'Notifications',
+          tabBarIcon: ({ color, focused }) => (
+            <Bell fillOpacity={focused ? 1 : 0} fill={color} color={color}/>
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="(account)"
+        options={{
+          title: 'Account',
+          tabBarIcon: ({ color, focused }) => (
+            <User fillOpacity={focused ? 1 : 0} fill={color} color={color}/>
           ),
         }}
       />
