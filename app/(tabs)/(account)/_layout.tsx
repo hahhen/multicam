@@ -7,6 +7,16 @@ export default function AccountLayout() {
     if (!isSignedIn) {
         return <Redirect href={'/auth/signin'} />
     }
-    return <Stack screenOptions={{headerShown: false}} />
+    return  (
+        <Stack>
+            <Stack.Screen name="account" 
+            options={{
+                headerShown: false
+            }}/>
+            <Stack.Screen name="page" options={{
+                headerShown: false
+            }} />
+        </Stack>
+    )
 
 }

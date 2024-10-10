@@ -8,8 +8,11 @@ interface ProductProps {
     currency: string,
     price: number,
     priceProvider: string,
-    likes: number
-    empty?: boolean
+    likes: number,
+    pageid: number,
+    empty?: boolean,
+    isLiked?: boolean,
+    isBookmarked?: boolean,
 };
 
 function createRows(list: ProductProps[], columns:number) {
@@ -23,6 +26,8 @@ function createRows(list: ProductProps[], columns:number) {
         price: 0,
         priceProvider: 'none',
         likes: 0,
+        pageid: 0,
+        isLiked: false,
         empty: true
       });
       lastRowElements += 1; // [E]
@@ -31,17 +36,20 @@ function createRows(list: ProductProps[], columns:number) {
   }
 
 export function Feed({ list }: { list: ProductProps[] }) {
+    const rows = createRows(list, 2);
+
     return (
         <View>
             <FlatList
                 contentContainerStyle={{gap: 64}}
                 columnWrapperStyle={{gap: 16}}
                 scrollEnabled={false}
+                initialNumToRender={list.length}
                 numColumns={2}
                 style={styles.container}
                 data={createRows(list, 2)}
                 renderItem={({ item }) => {
-                    if(item.empty) return <View style={{width: '50%'}} />
+                    if(item.empty) return <View style={{flex: 1}} />
                     return <Product item={item} />
                 }}
                 keyExtractor={(item, index) => index.toString()}
@@ -52,6 +60,6 @@ export function Feed({ list }: { list: ProductProps[] }) {
 
 const styles = StyleSheet.create({
     container: {
-        gap: 16
+        overflow: 'visible',
     },
 })

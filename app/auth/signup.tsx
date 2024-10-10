@@ -11,6 +11,7 @@ export default function SignUpScreen() {
   const { isLoaded, signUp, setActive } = useSignUp()
   const router = useRouter()
 
+  const [username, setUsername] = React.useState('')
   const [emailAddress, setEmailAddress] = React.useState('')
   const [password, setPassword] = React.useState('')
   const [confirmedPassword, setConfirmedPassword] = React.useState('')
@@ -33,6 +34,7 @@ export default function SignUpScreen() {
       await signUp.create({
         emailAddress,
         password,
+        username,
       })
 
       await signUp.prepareEmailAddressVerification({ strategy: 'email_code' })
@@ -81,12 +83,20 @@ export default function SignUpScreen() {
             {error && <ThemedText style={{ color: 'red' }}>{error}</ThemedText>}
           </View>
           <View style={{ marginBottom: 50, gap: 30 }}>
+          <View>
+              <ThemedText style={styles.smallText}>Username:</ThemedText>
+              <TextInput
+                autoCapitalize="none"
+                value={username}
+                onChangeText={setUsername}
+                style={styles.input} />
+            </View>
             <View>
               <ThemedText style={styles.smallText}>E-mail:</ThemedText>
               <TextInput
                 autoCapitalize="none"
                 value={emailAddress}
-                onChangeText={(emailAddress) => setEmailAddress(emailAddress)}
+                onChangeText={setEmailAddress}
                 style={styles.input} />
             </View>
             <View>
@@ -95,7 +105,7 @@ export default function SignUpScreen() {
                 style={styles.input}
                 value={password}
                 secureTextEntry={true}
-                onChangeText={(password) => setPassword(password)}
+                onChangeText={setPassword}
               />
             </View>
             <View>
@@ -104,7 +114,7 @@ export default function SignUpScreen() {
                 style={styles.input}
                 value={confirmedPassword}
                 secureTextEntry={true}
-                onChangeText={(password) => setConfirmedPassword(password)}
+                onChangeText={setConfirmedPassword}
               />
             </View>
           </View>

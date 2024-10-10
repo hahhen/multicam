@@ -10,6 +10,7 @@ export default function SignInPage() {
   const { signIn, setActive, isLoaded } = useSignIn()
   const router = useRouter()
 
+  const [error, setError] = React.useState('')
   const [emailAddress, setEmailAddress] = React.useState('')
   const [password, setPassword] = React.useState('')
 
@@ -34,15 +35,20 @@ export default function SignInPage() {
       }
     } catch (err: any) {
       console.error(JSON.stringify(err, null, 2))
+      const error = err.errors.map((error: any) => error.longMessage).join('\n')
+      setError(error)
     }
   }, [isLoaded, emailAddress, password])
 
   return (
     <ThemedView style={styles.container}>
-      <ThemedText type='title' style={{ fontWeight: 800, letterSpacing: -1, color: Colors.light.tint }}>Sign in</ThemedText>
+      <View>
+            <ThemedText type='title' style={{ fontWeight: 800, letterSpacing: -1, color: Colors.light.tint }}>Sign in</ThemedText>
+            {error && <ThemedText style={{ color: 'red' }}>{error}</ThemedText>}
+          </View>
       <View style={{ marginBottom: 50, gap: 30 }}>
         <View>
-          <ThemedText style={styles.smallText}>Username:</ThemedText>
+          <ThemedText style={styles.smallText}>Username or e-mail:</ThemedText>
           <TextInput
             autoCapitalize="none"
             value={emailAddress}

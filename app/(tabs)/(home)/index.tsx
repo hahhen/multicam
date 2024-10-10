@@ -7,38 +7,44 @@ import { ThemedView } from '@/components/ThemedView';
 import { Colors } from '@/constants/Colors';
 import { ThemedScrollView } from '@/components/ThemedScrollView';
 import { Feed } from '@/components/Feed';
+import { useEffect, useState } from 'react';
+import { useUser } from '@clerk/clerk-expo';
 
 export default function HomeScreen() {
-  const list = [
-    {
-      title: "Fujifilm X-T4",
-      image: "http://farm6.staticflickr.com/5075/5908389383_c69efcc2d7.jpg",
-      currency: "$",
-      price: 310.99,
-      priceProvider: "ebay",
-      likes: 30
-    },
-    {
-      title: "Camera",
-      image: "http://farm6.staticflickr.com/5075/5908389383_c69efcc2d7.jpg",
-      currency: "$",
-      price: 430.99,
-      priceProvider: "amazon",
-      likes: 30
-    },
-    {
-      title: "Camera",
-      image: "http://farm6.staticflickr.com/5075/5908389383_c69efcc2d7.jpg",
-      currency: "$",
-      price: 430.99,
-      priceProvider: "amazon",
-      likes: 30
-    },
-    
 
-  ]
+  const {isSignedIn, user} = useUser()
+
+  interface ProductProps {
+    title: string,
+    image: string,
+    currency: string,
+    price: number,
+    priceProvider: string,
+    likes: number
+    pageid: number
+    empty?: boolean
+    isLiked?: boolean
+  }
+
+  const [cameras, setCameras] = useState<ProductProps[]>([]);
+
+  const getCameras = () => {
+    return fetch(`https://multicam-bcknd.vercel.app/${isSignedIn ? `?userId=${user.id}`: ''}`)
+      .then(response => response.json())
+      .then(json => {
+        setCameras(json.cameras);
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  };
+
+  useEffect(() => {
+    getCameras();
+  }, []);
+
   return (
-    <ThemedScrollView>
+    <ThemedScrollView refreshFunction={getCameras}>
       <ThemedView style={styles.titleContainer}>
         <ThemedText style={styles.title} type="title">Featured articles</ThemedText>
       </ThemedView>
@@ -51,7 +57,7 @@ export default function HomeScreen() {
       <ThemedView style={styles.titleContainer}>
         <ThemedText style={styles.title} type="title">Recommended</ThemedText>
       </ThemedView>
-      <Feed list={list} />
+      <Feed list={cameras} />
     </ThemedScrollView>
   );
 }

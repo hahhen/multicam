@@ -1,8 +1,11 @@
-import { View, Text, StyleSheet, Image } from 'react-native';
+import { View, Text, StyleSheet, Image, Pressable } from 'react-native';
 import { ThemedView } from './ThemedView';
 import { ThemedText } from './ThemedText';
 import { Bookmark, Heart } from 'lucide-react-native';
 import { Colors } from '@/constants/Colors';
+import { Href, Link } from 'expo-router';
+import { useUser } from '@clerk/clerk-expo';
+import { useEffect, useState } from 'react';
 
 interface ProductProps {
     item: {
@@ -12,28 +15,71 @@ interface ProductProps {
         price: number,
         priceProvider: string,
         likes: number
+        pageid: number
+        isLiked?: boolean
+        isBookmarked?: boolean
     }
 };
 
 export function Product({ item }: ProductProps) {
+    const [liked, setLiked] = useState(item.isLiked);
+    const [bookmarked, setBookmarked] = useState(item.isBookmarked)
+    const { user } = useUser();
+
+    const updateLiked = async (isLiked: boolean) => {
+        if (isLiked){
+            await fetch(`https://multicam-bcknd.vercel.app/like/?cameraId=${item.pageid}&userId=${user?.id}`, {
+                method: 'POST'
+            });
+        }else if(!isLiked){
+            await fetch(`https://multicam-bcknd.vercel.app/like/?operation=delete&cameraId=${item.pageid}&userId=${user?.id}`, {
+                method: 'POST'
+            });
+        }
+    }
+
+    const updateBookmarked = async (isBookmarked: boolean) => {
+        if (isBookmarked){
+            await fetch(`https://multicam-bcknd.vercel.app/bookmark/?cameraId=${item.pageid}&userId=${user?.id}`, {
+                method: 'POST'
+            });
+        }else if(!isBookmarked){
+            await fetch(`https://multicam-bcknd.vercel.app/bookmark/?operation=delete&cameraId=${item.pageid}&userId=${user?.id}`, {
+                method: 'POST'
+            });
+        }
+    }
+
     const providerimage = item.priceProvider == 'amazon' ? 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Amazon_logo.svg/1024px-Amazon_logo.svg.png' : 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/EBay_logo.png/640px-EBay_logo.png';
     return (
-        <ThemedView style={styles.container}>
-            <View style={styles.imagecontainer}>
-                <Image source={{ uri: item.image }} style={styles.image} />
-            </View>
-            <View style={styles.textinfo}>
-                <ThemedText style={{letterSpacing: -1}}>{item.title}</ThemedText>
-                <View style={{ display: 'flex', flexDirection: 'row', alignItems: "center", gap: 5 }}>
-                    <ThemedText style={{letterSpacing: -1, fontWeight: 700}}>{item.currency + item.price}</ThemedText>
-                    <Image source={{ uri: providerimage }} style={{ width: 50, height: 20, resizeMode: "contain" }} />
+        <Link href={`/page?pageid=${item.pageid}` as Href} asChild>
+            <Pressable style={styles.container}>
+                <View style={styles.imagecontainer}>
+                    <Image source={{ uri: item.image }} style={styles.image} />
                 </View>
-            </View>
-            <View style={styles.action}>
-                <Heart size={25} color={Colors.light.tint} />
-                <Bookmark size={25} color={Colors.light.tint} />
-            </View>
-        </ThemedView>
+                <View style={styles.textinfo}>
+                    <ThemedText style={{ letterSpacing: -1, fontSize: 15 }}>{item.title}</ThemedText>
+                    <View style={{ display: 'flex', flexDirection: 'row', alignItems: "center", gap: 5 }}>
+                        <ThemedText style={{ letterSpacing: -1, fontWeight: 700 }}>{item.currency + item.price}</ThemedText>
+                        <Image source={{ uri: providerimage }} style={{ width: 50, height: 20, resizeMode: "contain" }} />
+                    </View>
+                </View>
+                <View style={styles.action}>
+                    <Pressable onPress={() => {
+                        updateLiked(!liked)
+                        setLiked(!liked)
+                    }} style={{flexGrow: 1, justifyContent: 'center', alignItems: "center"}}>
+                        <Heart size={25} color={Colors.light.tint} fill={liked ? Colors.light.tint : Colors.light.background}/>
+                    </Pressable>
+                    <Pressable onPress={() => {
+                        updateBookmarked(!bookmarked)
+                        setBookmarked(!bookmarked)
+                    }} style={{flexGrow: 1, justifyContent: 'center', alignItems: "center"}}>
+                        <Bookmark size={25} color={Colors.light.tint} fill={bookmarked ? Colors.light.tint : Colors.light.background}/>
+                    </Pressable>
+                </View>
+            </Pressable>
+        </Link>
     );
 }
 
@@ -58,10 +104,9 @@ const styles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'column',
     },
-    action:{
+    action: {
         display: 'flex',
         flexDirection: 'row',
-        justifyContent: 'space-around',
         alignItems: 'center',
     }
 })

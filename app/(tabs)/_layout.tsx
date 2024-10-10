@@ -19,8 +19,8 @@ export default function TabLayout() {
         tabBarActiveTintColor: Colors.light.tint,
         headerShown: false,
       }}>
-      <Tabs.Screen
-        name="index"
+      <Tabs.Screen 
+        name="(home)"
         options={{
           title: 'Home',
           tabBarIcon: ({ color, focused }) => (
@@ -29,20 +29,11 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="search"
+        name="(search)"
         options={{
           title: 'Search',
           tabBarIcon: ({ color, focused }) => (
             <Search fillOpacity={focused ? 1 : 0} fill={color} color={color}/>
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="notifications"
-        options={{
-          title: 'Notifications',
-          tabBarIcon: ({ color, focused }) => (
-            <Bell fillOpacity={focused ? 1 : 0} fill={color} color={color}/>
           ),
         }}
       />
