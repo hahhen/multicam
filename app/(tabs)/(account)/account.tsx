@@ -148,10 +148,10 @@ export default function TabThreeScreen() {
               <ThemedText style={styles.smallText}>{user?.primaryEmailAddress?.emailAddress}</ThemedText>
               <View style={{ gap: 24, flexDirection: 'row' }}>
                 <View style={styles.statLabelContainer}>
-                  <ThemedText style={[styles.smallText, { fontWeight: 'bold' }]}>{likedList.length}</ThemedText><ThemedText style={styles.smallText}>&nbsp;likes</ThemedText>
+                  <ThemedText style={[styles.smallText, { fontFamily: "Inter-Bold" }]}>{likedList.length}</ThemedText><ThemedText style={styles.smallText}>&nbsp;likes</ThemedText>
                 </View>
                 <View style={styles.statLabelContainer}>
-                  <ThemedText style={[styles.smallText, { fontWeight: 'bold' }]}>{bookmarkedList.length}</ThemedText><ThemedText style={styles.smallText}>&nbsp;bookmarks</ThemedText>
+                  <ThemedText style={[styles.smallText, { fontFamily: "Inter-Bold" }]}>{bookmarkedList.length}</ThemedText><ThemedText style={styles.smallText}>&nbsp;bookmarks</ThemedText>
                 </View>
               </View>
             </View>
@@ -199,7 +199,7 @@ const styles = StyleSheet.create({
     marginBottom: 32,
   },
   username: {
-    fontWeight: 'bold',
+    fontFamily: "Inter-Bold",
     fontSize: 24,
     letterSpacing: -1.5,
   },

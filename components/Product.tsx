@@ -60,7 +60,7 @@ export function Product({ item }: ProductProps) {
                 <View style={styles.textinfo}>
                     <ThemedText style={{ letterSpacing: -1, fontSize: 15 }}>{item.title}</ThemedText>
                     <View style={{ display: 'flex', flexDirection: 'row', alignItems: "center", gap: 5 }}>
-                        <ThemedText style={{ letterSpacing: -1, fontWeight: 700 }}>{item.currency + item.price}</ThemedText>
+                        <ThemedText style={{ letterSpacing: -0.5, fontFamily: "Inter-Bold" }}>{item.currency + " " + item.price}</ThemedText>
                         <Image source={{ uri: providerimage }} style={{ width: 50, height: 20, resizeMode: "contain" }} />
                     </View>
                 </View>

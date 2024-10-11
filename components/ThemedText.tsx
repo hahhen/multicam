@@ -43,18 +43,18 @@ const styles = StyleSheet.create({
     letterSpacing: -1,
     fontSize: 16,
     lineHeight: 24,
-    fontWeight: '600',
+    fontFamily: "Inter-Bold",
   },
   title: {
     letterSpacing: -1,
     fontSize: 32,
-    fontWeight: 800,
+    fontFamily: "Inter-Bold",
     lineHeight: 32,
   },
   subtitle: {
     letterSpacing: -1,
     fontSize: 20,
-    fontWeight: 'bold',
+    fontFamily: "Inter-Bold",
   },
   link: {
     letterSpacing: -1,

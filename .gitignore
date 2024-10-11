@@ -10,6 +10,8 @@ npm-debug.*
 *.orig.*
 web-build/
 .env
+multicam-438223-08d1f84369f3.json
+eas.json
 
 # macOS
 .DS_Store

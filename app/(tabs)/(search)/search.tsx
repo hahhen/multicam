@@ -99,7 +99,6 @@ export default function TabTwoScreen() {
 
 const styles = StyleSheet.create({
   textStyle: {
-    fontFamily: "Inter",
     fontSize: 8,
     letterSpacing: -1.2,
     padding: 0,

@@ -43,7 +43,7 @@ export default function SignInPage() {
   return (
     <ThemedView style={styles.container}>
       <View>
-            <ThemedText type='title' style={{ fontWeight: 800, letterSpacing: -1, color: Colors.light.tint }}>Sign in</ThemedText>
+            <ThemedText type='title' style={{ fontFamily: "Inter-Bold", letterSpacing: -1, color: Colors.light.tint }}>Sign in</ThemedText>
             {error && <ThemedText style={{ color: 'red' }}>{error}</ThemedText>}
           </View>
       <View style={{ marginBottom: 50, gap: 30 }}>
@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
   buttonText: {
     letterSpacing: -1,
     fontSize: 16,
-    fontWeight: 'bold',
+    fontFamily: "Inter-Bold",
     color: Colors.light.background,
   },
   linkText: {

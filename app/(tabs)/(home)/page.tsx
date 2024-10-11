@@ -46,7 +46,7 @@ export default function Page() {
           style={{ height: '100%', backgroundColor: Colors.light.background }}
         >
           <ThemedView style={{ paddingHorizontal: 30, paddingTop: 30}}>
-            <ThemedText style={{ fontSize: 30, fontWeight: "bold", lineHeight: 30 }}>{title}</ThemedText>
+            <ThemedText style={{ fontSize: 30, fontFamily: "Inter-Bold", lineHeight: 30 }}>{title}</ThemedText>
             <ThemedText style={{ fontSize: 15, color: Colors.light.text, marginBottom: 20 }}>Categories: {categories.map((category) => (
               category+ ", "
             ))}</ThemedText>

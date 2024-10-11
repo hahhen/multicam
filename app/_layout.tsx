@@ -9,15 +9,11 @@ import * as SecureStore from 'expo-secure-store'
 import { ThemedView } from '@/components/ThemedView';
 import { Image, StyleSheet, Appearance, } from 'react-native';
 
+
 const tokenCache = {
   async getToken(key: string) {
     try {
       const item = await SecureStore.getItemAsync(key)
-      if (item) {
-        console.log(`${key} was used 🔐 \n`)
-      } else {
-        console.log('No values stored under key: ' + key)
-      }
       return item
     } catch (error) {
       console.error('SecureStore get item error: ', error)
@@ -48,7 +44,8 @@ if (!publishableKey) {
 export default function RootLayout() {
   Appearance.setColorScheme("light")
   const [loaded] = useFonts({
-    Inter: require('../assets/fonts/Inter.ttf'),
+    'Inter': require('../assets/fonts/Inter-Regular.otf'),
+    'Inter-Bold': require('../assets/fonts/Inter-Bold.otf')
   });
 
   useEffect(() => {
@@ -62,7 +59,7 @@ export default function RootLayout() {
   }
 
   return (
-    <ClerkProvider publishableKey={publishableKey}>
+    <ClerkProvider tokenCache={tokenCache} publishableKey={publishableKey}>
       <ClerkLoaded>
         <ThemeProvider value={DefaultTheme}>
           <ThemedView style={styles.header}>
