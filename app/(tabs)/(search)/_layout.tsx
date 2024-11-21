@@ -10,6 +10,9 @@ export default function SearchStack(){
             <Stack.Screen name="page" options={{
                 headerShown: false
             }} />
+            <Stack.Screen name="map" options={{
+                headerShown: false
+            }} />
         </Stack>
     )
 }

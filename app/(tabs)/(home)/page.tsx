@@ -83,7 +83,6 @@ const rules = {
 
     const imageProps = {
       indicator: true,
-      key: node.key,
       style: styles._VIEW_SAFE_image,
       source: {
         uri: show === true ? src : `${defaultImageHandler}${src}`,
@@ -99,7 +98,7 @@ const rules = {
 
     return (
       <View key={node.key} style={{width: "100%", aspectRatio: 1}}>
-        <Image {...imageProps} />
+        <Image key={node.key} {...imageProps} />
       </View>
     );
   },

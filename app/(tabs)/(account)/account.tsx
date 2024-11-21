@@ -1,4 +1,4 @@
-import { StyleSheet, Image, Platform, View, TextInput, Button, Text, Pressable, useWindowDimensions } from 'react-native';
+import { StyleSheet, Image, Platform, View, TextInput, Button, Text, Pressable, useWindowDimensions, TouchableOpacity } from 'react-native';
 import * as React from 'react'
 import { useSignUp } from '@clerk/clerk-expo'
 import { useRouter } from 'expo-router'
@@ -136,12 +136,12 @@ export default function TabThreeScreen() {
             {user?.hasImage ?
               <View style={{ position: 'relative' }}>
                 <Image source={{ uri: user?.imageUrl }} style={{ width: 100, height: 100, borderRadius: 50 }} />
-                <Pressable onPress={pickImage} style={styles.editPictureTopBtn}><PenBox color={Colors.light.text} size={14} /></Pressable>
+                <TouchableOpacity onPress={pickImage} style={styles.editPictureTopBtn}><PenBox color={Colors.light.text} size={14} /></TouchableOpacity>
               </View>
               :
-              <Pressable onPress={pickImage} style={{ width: 100, height: 100, borderRadius: 50, backgroundColor: Colors.light.secondaryBackground, justifyContent: 'center', alignItems: 'center' }}>
+              <TouchableOpacity onPress={pickImage} style={{ width: 100, height: 100, borderRadius: 50, backgroundColor: Colors.light.secondaryBackground, justifyContent: 'center', alignItems: 'center' }}>
                 <Camera size={30} color={Colors.light.tint} />
-              </Pressable>
+              </TouchableOpacity>
             }
             <View>
               <ThemedText style={styles.username}>{user?.username}</ThemedText>

@@ -127,7 +127,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     borderRadius: 8,
-    padding: 10,
+    paddingHorizontal: 10,
+    paddingVertical: 5,
     backgroundColor: Colors.light.secondaryBackground,
   }
 });

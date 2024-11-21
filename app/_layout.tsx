@@ -1,6 +1,6 @@
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
+import { Link, Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 import 'react-native-reanimated';
@@ -8,6 +8,8 @@ import { ClerkProvider, ClerkLoaded } from '@clerk/clerk-expo'
 import * as SecureStore from 'expo-secure-store'
 import { ThemedView } from '@/components/ThemedView';
 import { Image, StyleSheet, Appearance, } from 'react-native';
+import { MapIcon } from 'lucide-react-native';
+import { Colors } from '@/constants/Colors';
 
 
 const tokenCache = {
@@ -64,6 +66,9 @@ export default function RootLayout() {
         <ThemeProvider value={DefaultTheme}>
           <ThemedView style={styles.header}>
             <Image source={require('../assets/images/logo.png')} style={styles.logo} />
+            <Link href="map">
+              <MapIcon size={30} color={Colors.light.tint} />
+            </Link>
           </ThemedView>
           <Stack>
             <Stack.Screen name="auth" options={{ headerShown: false }} />
@@ -78,8 +83,10 @@ export default function RootLayout() {
 
 const styles = StyleSheet.create({
   header: {
-    height: 100,
-    paddingVertical: 50,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    height: 60,
+    paddingVertical: 10,
     paddingHorizontal: 30,
   },
   logo: {

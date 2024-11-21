@@ -12,9 +12,9 @@ export default function TabLayout() {
     <Tabs
       screenOptions={{
         tabBarStyle:{height: 80},
-        tabBarItemStyle:{justifyContent: 'center'},
+        tabBarItemStyle:{justifyContent: 'center', paddingTop: 10},
         tabBarLabelPosition: 'below-icon',
-        tabBarLabelStyle: { fontSize: 10, marginTop: 5 },
+        tabBarLabelStyle: { fontSize: 10, marginTop: 5, fontFamily: "Inter" },
         tabBarIconStyle: { maxHeight: 24,},
         tabBarActiveTintColor: Colors.light.tint,
         headerShown: false,
